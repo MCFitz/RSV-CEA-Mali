@@ -1,0 +1,28 @@
+---
+title: "Figures Report"
+date: "`r format(Sys.time(), '%B %d , %Y')`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, FrontiersDALYs, fig.cap='Disability-adjusted life years (DALYs) averted as coverage increases for each intervention.', out.width="80%"}
+knitr::include_graphics("Figures/FrontiersDALYs.jpeg")
+```
+
+```{r, FrontiersThresholdCosts, fig.cap='Incremental cost-effectiveness ratio (ICER) as cost per dose increases for each intervention. The red dashed line indicates the cost-effective threshold, equal to the per capita GDP of Mali.', out.width="80%"}
+knitr::include_graphics("Figures/FrontiersThresholdCosts.jpeg")
+```
+
+```{r, Uncertainty, fig.cap='Probability each intervention is cost-effective at a given cost-per dose', out.width="80%"}
+knitr::include_graphics("Figures/FrontiersUncertainty.jpeg")
+```
+
+```{r, HeadtoHead, fig.cap='Probability ResVax™ has greater net health benefits than nirsevimab at a given cost per dose (product and delivery) for each intervention', out.width="80%"}
+knitr::include_graphics("Figures/mVax_vs_llAb.jpeg")
+```
+
+
+

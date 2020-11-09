@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Cost-Effectiveness of RSV Preventive Interventions in Mali</title>
+
+
+
+
+
+
+<!--
+Font-awesome icons ie github or twitter
+-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/brands.css" integrity="sha384-n9+6/aSqa9lBidZMRCQHTHKJscPq6NW4pCQBiMmHdUCvPN8ZOg2zJJTkC7WIezWv" crossorigin="anonymous">
+
+<!--
+Google fonts api stuff
+-->
+<link href='https://fonts.googleapis.com/css?family=Rasa' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Rasa' rel='stylesheet'>
+
+<!--
+Here are the required style attributes for css to make this poster work :)
+-->
+<style>
+@page {
+size: 46in 32in;
+margin: 0;
+padding: 0;
+background-color: #ffffff;
+}
+body {
+margin: 0px;
+padding: 0px;
+width: 46in;
+height: 32in;
+text-align: justify;
+font-size: 45px;
+background-color: #FFFFFF;
+color: #000000;
+}
+/* RMarkdown Class Styles */
+/* center align leaflet map,
+from https://stackoverflow.com/questions/52112119/center-leaflet-in-a-rmarkdown-document */
+.html-widget {
+margin: auto;
+position: sticky;
+margin-top: 2cm;
+margin-bottom: 2cm;
+}
+.leaflet.html-widget.html-widget-static-bound.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+position: sticky;
+width: 100%;
+}
+pre.sourceCode.r {
+background-color: #dddddd40;
+border-radius: 4mm;
+padding: 4mm;
+width: 75%;
+margin: auto;
+margin-top: 1em;
+margin-bottom: 1em;
+/* align-items: center; */
+}
+code.sourceCode.r{
+background-color: transparent;
+font-size: 20pt;
+border-radius: 2mm;
+}
+code {
+font-size: 25pt;
+font-family: monospace;
+background-color: #401f3124;
+color: #753657;
+padding: 1.2mm;
+line-height: 1;
+border-radius: 2mm;
+}
+caption {
+margin-bottom: 10px;
+font-size: 20pt;
+font-style: italic;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #75365720;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+  border-spacing: 0;
+  font-size: 40%;
+  border-style: none;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 1em;
+  padding-left: 1em;
+  line-height: 1em;
+}
+table {
+  margin: auto;
+}
+th {
+  padding-left: 5mm;
+  padding-right: 5mm;
+}
+.caption {
+font-size: 20pt;
+font-style: italic;
+padding-top: 0;
+}
+.references {
+font-size: 20px;
+line-height: 90%;
+}
+/* Create three unequal columns that floats next to each other */
+.column {
+float: left;
+padding: 0px;
+}
+.outer {
+width: 46in;
+height: 32in;
+-webkit-column-count: 2; /* Chrome, Safari, Opera */
+-moz-column-count: 2; /* Firefox */
+column-count: 2;
+-webkit-column-fill: auto;
+-moz-column-fill: auto;
+column-fill: auto;
+-webkit-column-rule-width: 50%;
+-moz-column-rule-width: 50%;
+column-rule-width: 50%;
+-webkit-column-rule-style: solid;
+-moz-column-rule-style: solid;
+column-rule-style: solid;
+-webkit-column-rule-color: black;
+-moz-column-rule-color: black;
+column-rule-color: black;
+-webkit-column-gap: 50%;
+background-color: #ffffff;
+font-family: Rasa;
+color: #000000;
+}
+span.citation {
+  color: #401f31;
+  font-weight: bold;
+}
+a {
+text-decoration: none;
+color: #401f31;
+}
+#title {
+font-size: 100pt;
+text-align: left;
+margin: 0;
+line-height: 90%;
+border-bottom: 0;
+}
+#author {
+color: #753657;
+margin: 0;
+line-height: 90%;
+font-size: 1.17em;
+}
+#affiliation {
+padding-top: 1em;
+color: #00000060;
+font-style: italic;
+font-size: 25px;
+margin: 0;
+}
+sup {
+color: #008080;
+}
+.affiliation sup {
+font-size: 20px;
+}
+.author sup {
+font-size: 30px;
+}
+.author_extra {
+color: #401f31;
+margin: 0;
+line-height: 85%;
+font-size: 35px;
+}
+.outer h1 {
+text-align: center;
+margin-top: 0.5in;
+margin-bottom: 0.5in;
+}
+.outer h2 {
+text-align: center;
+}
+.outer p {
+color: #000000;
+}
+.outer ol {
+text-align: left;
+}
+.main {
+width: calc(46in / 2);
+height: 32in;
+position: absolute;
+margin-left: calc(46in / 4);
+background-color: #753657;
+color: #FFFFFF90;
+font-family: Rasa;
+background-image: linear-gradient(#753657 50%, #401f31);
+}
+.main strong {
+color: #FFFFFF;
+}
+img.main-img-left {
+width: 20%;
+left: 0.5in;
+bottom: 0.2in;
+position: absolute;
+}
+img.main-img-right {
+width: 18%;
+right: 0.5in;
+bottom: 0.2in;
+position: absolute;
+}
+.main p {
+padding-top: 20%;
+font-size: 170px;
+text-align: left;
+}
+.fab {
+color: #00000060;
+font-size: 25px;
+}
+.twitter, i {
+color: #00000060;
+font-size: 35px;
+text-decoration: none;
+}
+a.email {
+text-decoration: none;
+color: #00000060;
+font-size: 35px;
+}
+.envelope {
+color: #00000060;
+font-size: 5px;
+text-decoration: none;
+}
+.poster_wrap {
+width: 46in;
+height: 32in;
+padding: 0cm;
+background-color: #ffffff;
+}
+span > #tab:mytable {
+  font-weight: bold;
+}
+.section {
+  padding-left: 10mm;
+  padding-right: 10mm;
+}
+.main p {
+  padding-left: 30mm;
+  padding-right: 30mm;
+}
+.main_pic {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.orcid img {
+  width: 3%;
+}
+</style>
+</head>
+<body>
+
+
+<div class="poster_wrap">
+<div class="column outer">
+<br>
+<div class="title section">
+<h1 id="title">Cost-Effectiveness of RSV Preventive Interventions in Mali</h1>
+<br>
+<h3 id="author" class="author">
+
+Rachel S. Laufer, MPH<sup> 1, <a class="orcid" href="https://orcid.org/0000-0003-3142-9347"><img src="https://raw.githubusercontent.com/brentthorne/posterdown/master/images/orcid.jpg"></a></sup><br>
+
+<a class='envelope'><i class="fas fa-envelope"></i></a> <a href="mailto:rlaufer@som.umaryland.edu" class="email">rlaufer@som.umaryland.edu</a> <br>
+       </h3>
+
+<h5 id="author_extra" class="author_extra">
+ James D. Campbell, MD<sup>1</sup>
+ Amanda J. Driscoll, PhD<sup>1</sup>
+ Karen L. Kotloff, MD<sup>1</sup>
+ Kathleen M. Neuzil, MD<sup>1</sup>
+ Justin R. Ortiz, MD<sup>1, <a class="orcid" href="https://orcid.org/0000-0002-3138-5965"><img src="https://raw.githubusercontent.com/brentthorne/posterdown/master/images/orcid.jpg"></a></sup>
+ Milagritos D. Tapia, MD<sup>1</sup>
+ Meagan C. Fitzpatrick, PhD<sup>1, <a class="orcid" href="https://orcid.org/0000-0002-5248-2668"><img src="https://raw.githubusercontent.com/brentthorne/posterdown/master/images/orcid.jpg"></a></sup>
+</h5>
+
+<p id="affiliation" class="affiliation">
+<sup>1</sup> Center for Vaccine Development and Global Health, Univeristy of Maryland School of Medicine
+</p>
+
+</div>
+<div id="disclosures" class="section level3">
+<h3>Disclosures</h3>
+<p>The authors have nothing to disclose.</p>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<ul>
+<li>Respiratory syncytial virus (RSV) is the leading cause of acute lower-respiratory tract infections in infants.</li>
+<li>Developing countries have the most RSV associated infant morbidity and mortality. <span class="citation">(Shi et al. <a href="#ref-RN5">2017</a>)</span></li>
+<li>The current monoclonal antibody, Palivizumab, is cost-prohibitive for low-resource settings.</li>
+<li>New products for RSV prevention are in development. <span class="citation">(Web Page <a href="#ref-RN38">2019</a>)</span></li>
+</ul>
+<div id="objective" class="section level2">
+<h2>Objective</h2>
+<p>Evaluate the cost-effectiveness of current and novel RSV preventive interventions in Mali to inform policy recommendations for low-resource countries</p>
+</div>
+</div>
+<div id="methods" class="section level1">
+<h1>Methods</h1>
+<p>Our model considers four scenarios:</p>
+<ol style="list-style-type: decimal">
+<li>No intervention</li>
+<li>Monthly dose of Palivizumab (mAb)</li>
+<li>Single dose of long-lasting MEDI8897 (llAb)</li>
+<li>Infant mothers receive ResVax (mVax)</li>
+</ol>
+<ul>
+<li>We simulated the epidemiological impact of each scenario using a monthly cohort model</li>
+<li>We estimated associated health and economic costs</li>
+<li>We evaluated cost-effectiveness using WHO standards</li>
+</ul>
+<p><br></p>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<p>Our analysis indicates that the long-lasting monoclonal antibody would have the largest health impact in terms of DALYs averted, Figure <a href="#fig:FrontiersDALYs">1</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:FrontiersDALYs"></span>
+<img src="Figures/FrontiersDALYs.jpeg" alt="Disability-adjusted life years (DALYs) averted as coverage increases for each intervention." width="80%" />
+<p class="caption">
+Figure 1: Disability-adjusted life years (DALYs) averted as coverage increases for each intervention.
+</p>
+</div>
+<p>The mAb, llAb, and mVax would be considered <strong>very cost-effective</strong> at up to $15, $65, and $27 per dose respectively, Figure <a href="#fig:FrontiersThresholdCosts">2</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:FrontiersThresholdCosts"></span>
+<img src="Figures/FrontiersThresholdCosts.jpeg" alt="Incremental cost-effectiveness ratio (ICER) as cost per dose increases for each intervention. The red dashed line indicates the **very cost-effective** threshold, equal to the per capita GDP of Mali." width="80%" />
+<p class="caption">
+Figure 2: Incremental cost-effectiveness ratio (ICER) as cost per dose increases for each intervention. The red dashed line indicates the <strong>very cost-effective</strong> threshold, equal to the per capita GDP of Mali.
+</p>
+</div>
+<p>If llAb were priced at less than ~$40 per dose upon market licensure then it might provide greater value for money than mVax, Figure <a href="#fig:HeadtoHead">3</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:HeadtoHead"></span>
+<img src="Figures/mVax_vs_llAb.jpeg" alt="Probability mVax has greater net health benefits than llAb at a given cost per dose for each intervention" width="80%" />
+<p class="caption">
+Figure 3: Probability mVax has greater net health benefits than llAb at a given cost per dose for each intervention
+</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-RN5">
+<p>Shi, T., D. A. McAllister, K. L. O’Brien, E. A. F. Simoes, S. A. Madhi, B. D. Gessner, F. P. Polack, et al. 2017. “Global, Regional, and National Disease Burden Estimates of Acute Lower Respiratory Infections Due to Respiratory Syncytial Virus in Young Children in 2015: A Systematic Review and Modelling Study.” Journal Article. <em>Lancet</em> 390 (10098): 946–58. <a href="https://doi.org/10.1016/s0140-6736(17)30938-8">https://doi.org/10.1016/s0140-6736(17)30938-8</a>.</p>
+</div>
+<div id="ref-RN38">
+<p>Web Page. 2019. <a href="https://path.org/resources/rsv-vaccine-and-mab-snapshot/">https://path.org/resources/rsv-vaccine-and-mab-snapshot/</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="main">
+<p>New Long-Lasting <strong>Monoclonal Antibody</strong> May Be <strong>Cost-Effective</strong> Investment to Protect Infants from <strong>RSV</strong> in Low-Resource Countries<br><br> <img src="https://www.medschool.umaryland.edu/media/SOM/Institutes/CVDGH/images/CVGGH_Globe_grey10.png" class="main_pic" /></p>
+<img src="https://raw.githubusercontent.com/brentthorne/posterdown/master/images/qr-code-black.png" class="main-img-left" />
+<img src="Figures/CVDGH_UMSOM_logo.png" class="main-img-right" />
+</div>
+</div>
+
+
+
+</body>
+</html>

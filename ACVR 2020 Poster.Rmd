@@ -1,0 +1,105 @@
+---
+title: Cost-Effectiveness of RSV Preventive Interventions in Mali
+title_textsize: "100pt"
+author:
+  - name: Rachel S. Laufer, MPH
+    affil: 1
+    email: rlaufer@som.umaryland.edu
+    orcid: 0000-0003-3142-9347
+    main: true
+  - name: James D. Campbell, MD
+    affil: 1
+  - name: Amanda J. Driscoll, PhD
+    affil: 1
+  - name: Karen L. Kotloff, MD
+    affil: 1
+  - name: Kathleen M. Neuzil, MD
+    affil: 1
+  - name: Justin R. Ortiz, MD
+    affil: 1
+    orcid: 0000-0002-3138-5965
+  - name: Milagritos D. Tapia, MD
+    affil: 1
+  - name: Meagan C. Fitzpatrick, PhD
+    affil: 1
+    orcid: 0000-0002-5248-2668
+affiliation:
+  - num: 1
+    address: Center for Vaccine Development and Global Health, Univeristy of Maryland School of Medicine
+main_findings:
+  - "New Long-Lasting **Monoclonal Antibody** May Be **Cost-Effective** Investment to Protect Infants from **RSV** in Low-Resource Countries"
+  - '![](https://www.medschool.umaryland.edu/media/SOM/Institutes/CVDGH/images/CVGGH_Globe_grey10.png){.main_pic}'
+logoleft_name: '![](https://raw.githubusercontent.com/brentthorne/posterdown/master/images/qr-code-black.png){.main-img-left}'
+logoright_name: '![](Figures/CVDGH_UMSOM_logo.png){.main-img-right}'
+main_fontfamily: "Rasa"
+primary_colour: "#753657"
+secondary_colour: "#401f31"
+accent_colour: "#008080"
+output:
+  posterdown::posterdown_betterland:
+    self_contained: false
+    pandoc_args: --mathjax
+    highlight: haddock
+    number_sections: false
+link-citations: true
+bibliography: RSV_ref.bib
+pagedown:: chrome_print("ACVR 2020 Poster.rmd")
+---
+```{r, include=FALSE}
+knitr::opts_chunk$set(results = 'asis',
+                      echo = FALSE,
+                      warning = FALSE,
+                      tidy = FALSE,
+                      message = FALSE,
+                      fig.align = 'center',
+                      out.width = "100%")
+options(knitr.table.format = "pdf") 
+```
+### Disclosures
+The authors have nothing to disclose.
+
+# Introduction
+
+* Respiratory syncytial virus (RSV) is the leading cause of acute lower-respiratory tract infections in infants. 
+* Developing countries have the most RSV associated infant morbidity and mortality. [@RN5]
+* The current monoclonal antibody, Palivizumab, is cost-prohibitive for low-resource settings.
+* New products for RSV prevention are in development. [@RN38]
+
+## Objective
+Evaluate the cost-effectiveness of current and novel RSV preventive interventions in Mali to inform policy recommendations for low-resource countries
+
+# Methods
+
+Our model considers four scenarios:
+
+1. No intervention
+1. Monthly dose of Palivizumab (mAb)
+1. Single dose of long-lasting  MEDI8897 (llAb)
+1. Infant mothers receive ResVax (mVax)
+
+* We simulated the epidemiological impact of each scenario using a monthly cohort model
+* We estimated associated health and economic costs
+* We evaluated cost-effectiveness using WHO standards
+
+<br>
+
+# Results
+Our analysis indicates that the long-lasting monoclonal antibody would have the largest health impact in terms of DALYs averted, Figure \@ref(fig:FrontiersDALYs).
+
+```{r, FrontiersDALYs, fig.cap='Disability-adjusted life years (DALYs) averted as coverage increases for each intervention.', out.width="80%"}
+knitr::include_graphics("Figures/FrontiersDALYs.jpeg")
+```
+
+The mAb, llAb, and mVax would be considered **very cost-effective** at up to $15, $65, and $27 per dose respectively, Figure \@ref(fig:FrontiersThresholdCosts).
+
+```{r, FrontiersThresholdCosts, fig.cap='Incremental cost-effectiveness ratio (ICER) as cost per dose increases for each intervention. The red dashed line indicates the **very cost-effective** threshold, equal to the per capita GDP of Mali.', out.width="80%"}
+knitr::include_graphics("Figures/FrontiersThresholdCosts.jpeg")
+```
+
+If llAb were priced at less than ~$40 per dose upon market licensure then it might provide greater value for money than mVax, Figure \@ref(fig:HeadtoHead).
+
+```{r, HeadtoHead, fig.cap='Probability mVax has greater net health benefits than llAb at a given cost per dose for each intervention', out.width="80%"}
+knitr::include_graphics("Figures/mVax_vs_llAb.jpeg")
+```
+
+## References
