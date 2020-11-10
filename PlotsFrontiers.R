@@ -39,7 +39,7 @@ abline( v = CET_Mali_GDP, col = UMBgray, lty = 3)
 text(CET_Mali_GDP, 0.92, labels = "1xGDP", srt = 45, cex = 0.80)
 # abline(v = 3* CET_Mali_GDP, col = UMBgray, lty = 3)
 # text(3*CET_Mali_GDP, 0.92, labels = "3xGDP", srt = 45, cex = 0.80)
-legend(locator(1), legend = c("Short-acting mAb, $3", "Short-acting mAb, $9", "Long-acting mAb, $3", "Long-acting mAb, $9", "Maternal vaccine, $3", "Maternal vaccine, $9"), cex = 0.80, lty = c(1, 2, 1, 2, 1, 2),
+legend(locator(1), legend = c("Short-acting mAb, $3", "Short-acting mAb, $9", "Long-acting mAb, $3", "Long-acting mAb, $9", "Maternal vaccine, $3", "Maternal vaccine, $9"), cex = 0.8, lty = c(1, 2, 1, 2, 1, 2),
        col = c(UMBsea, UMBsea, UMBforest, UMBforest, UMBblue, UMBblue), bty = "n")
 
 plot(WTP_sp, pce_gov_llAb, ylim = c(0, 1), xlim = c(0,10000), bty = "l",
