@@ -15,10 +15,10 @@ inpat_func <- function(p_inpat, num_pneum){
   p_inpat* num_pneum * p_seek_care
 }
 
+# alternate care scenario
 inpat_cSA_func <- function(p_inpat, num_pneum){
   p_inpat* num_pneum
 }
-
 
 # calculate number of infants not receiving appropriate level of care
 # 53% of infants in LMIC with RSV-LRTI do not receive appropriate level of care
@@ -31,6 +31,7 @@ mort_inpat_func <- function(CFR_inpat, num_inpat, CFR_nr, num_nr_care){
   (CFR_inpat * num_inpat) + (CFR_nr * num_nr_care)
 }
 
+# alternate care scenario
 mort_cSA_func <- function(CFR_inpat, num_inpat){
   (CFR_inpat * num_inpat)
 }

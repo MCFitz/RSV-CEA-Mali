@@ -6,10 +6,9 @@
 ft <- 23   # 1 year follow-up time
 empty_year_cohort <-  matrix (0, 12, ncol = ft)# extrapolate age-based attack rates out to 12 months, for 6-12 months project linear decline starting with AR at 6mo. and ending with AR at3mo.
 
-# months start in January  #### MCF added
+# months start in January  
 sim_mo <- 17
 empty_cohort <- matrix (0, 12, ncol = sim_mo)
-
 
 # incidence rate infant RSV cases in Mali per 1000 person-years, divided by 12 for rate in a single month
 mali_inc <- 536.8/12

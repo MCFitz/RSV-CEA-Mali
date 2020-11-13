@@ -7,7 +7,7 @@ source("EffectData.R") # load effect data
 
 # create matrices for Palivizumab administration costs by intervention coverage
 adcost_calc <- function (ad, cost_pd, cov){
-  output <- ad* cost_pd * cov
+  output <- ad* (cost_pd + adcost_llAb) * cov
 }
 SA_mAbcov_costs_ar <- array(NA, dim = c(dim(AR_bc)[1], dim(AR_bc)[2], length(SA_cov_vec)))
 for (aC in 1:length(SA_cov_vec)) {
