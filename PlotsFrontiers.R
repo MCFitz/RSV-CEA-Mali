@@ -170,7 +170,6 @@ barplot(tornado_mVax[1,], horiz = T, las=1, xlim = c(-300, 300), xaxt = 's', yla
 barplot(tornado_mVax[2,], horiz = T, las =1, xlim = c(-300, 300), xaxt = 's', ylab = '',
         beside = T, col = c(UMBblue), add = TRUE)
 quartz.save(file = "Figures/tornado_mVax.pdf", type = "pdf")
-# quartz.save(file = "Figures/tornadoplot.pdf, type = pdf")
 ###
 
 # CFR histogram overlay
