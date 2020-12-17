@@ -56,16 +56,15 @@ legend("bottomright", legend = c("Long-acting mAb", "Short-acting mAb", "Materna
        col = c(UMBforest, UMBsea, UMBblue), bty = "n")
 quartz.save(file = "Figures/uncertainty_fig2ab.pdf", type = "pdf")
 
-# Probability mVax has greater NHB than llAb
-####
-# key.title = title(main = "Probability maternal vaccine is optimal", cex.main = 0.60)
-quartz("mVax vs llAb", 4, 4)
-par(lwd = 3)
-par(mfrow = c(1,1))
-par(mar=c(4,4,2,2))
-filled.contour(mVax_h2h, llAb_h2h, prob_matrix, nlevels =6, col = brewer.pal(6, "Reds"), lwd =3, 
-               xlab = "Maternal vaccine cost (USD)", ylab = "Long-acting mAb cost (USD)", cex.lab = 0.9)
-quartz.save(file = "Figures/mVax_vs_llAb.pdf", type = "pdf")
+# # Probability mVax has greater NHB than llAb
+# ####
+# quartz("mVax vs llAb", 4, 4)
+# par(lwd = 3)
+# par(mfrow = c(1,1))
+# par(mar=c(4,4,2,2))
+# filled.contour(mVax_h2h, llAb_h2h, prob_matrix, nlevels =6, col = brewer.pal(6, "Reds"), lwd =3, 
+#                xlab = "Maternal vaccine cost (USD)", ylab = "Long-acting mAb cost (USD)", cex.lab = 0.9)
+# quartz.save(file = "Figures/mVax_vs_llAb.pdf", type = "pdf")
 
 #####
 
@@ -101,24 +100,24 @@ quartz.save(file = "Figures/DALYSandICER.pdf", type = "pdf")
 
 #####
 
-quartz("costs per cases and deaths averted", 7, 4)
+quartz("costs per death averted", 7, 4)
 par(lwd = 3, xaxs = "i", yaxs = "i")
-par(mfrow = c(1,2))
+par(mfrow = c(1,1))
 par(mar = c(4, 4, 2, 2))
-plot(cost_range, CPC_mVax, xlim = c(0, 10), ylim = c(0,250), col = UMBblue, type = "l", bty = "l",
-     xlab = "Cost per dose (USD, product + delivery)",
-     ylab = "Costs per RSV case averted ratio")
-lines(cost_range, CPC_mAb, col = UMBsea)
-lines(cost_range, CPC_llAb, col = UMBforest)
-legend("topleft", inset = c(-.05, 0), legend =c("Maternal vaccine", "Short-acting mAb", "Long-acting mAb"), 
-       lty = c(1,1,1), col = c(UMBblue, UMBsea, UMBforest), bty = "n")
+# plot(cost_range, CPC_mVax, xlim = c(0, 10), ylim = c(0,250), col = UMBblue, type = "l", bty = "l",
+#      xlab = "Cost per dose (USD, product + delivery)",
+#      ylab = "Costs per RSV case averted ratio")
+# lines(cost_range, CPC_mAb, col = UMBsea)
+# lines(cost_range, CPC_llAb, col = UMBforest)
+# legend("topleft", inset = c(-.05, 0), legend =c("Maternal vaccine", "Short-acting mAb", "Long-acting mAb"), 
+#        lty = c(1,1,1), col = c(UMBblue, UMBsea, UMBforest), bty = "n")
 
-plot(cost_range, CPD_mVax, xlim = c(0, 10), ylim = c(0, 400000), col = UMBblue, type = "l", bty = "l",
+plot(cost_range, CPD_mVax, xlim = c(0, 10), ylim = c(0, 500000), col = UMBblue, type = "l", bty = "l",
      xlab = "Cost per dose (USD, product + delivery)",
      ylab = "Costs per death averted ratio")
 lines(cost_range, CPD_mAb, col = UMBsea)
 lines(cost_range, CPD_llAb, col = UMBforest)
-legend("topleft", inset = c(-.05, 0), legend =c("Maternal vaccine", "Short-acting mAb", "Long-acting mAb"), 
+legend("topleft", legend =c("Maternal vaccine", "Short-acting mAb", "Long-acting mAb"), 
        lty = c(1,1,1), col = c(UMBblue, UMBsea, UMBforest), bty = "n")
 quartz.save(file = "Figures/GAVI_analysis.pdf", type = "pdf")
 ##
@@ -171,7 +170,6 @@ barplot(tornado_mVax[1,], horiz = T, las=1, xlim = c(-300, 300), xaxt = 's', yla
 barplot(tornado_mVax[2,], horiz = T, las =1, xlim = c(-300, 300), xaxt = 's', ylab = '',
         beside = T, col = c(UMBblue), add = TRUE)
 quartz.save(file = "Figures/tornado_mVax.pdf", type = "pdf")
-# quartz.save(file = "Figures/tornadoplot.pdf, type = pdf")
 ###
 
 # CFR histogram overlay
@@ -235,7 +233,6 @@ quartz.save(file = "Figures/FrontiersCases.pdf", type = "pdf")
 
 ###
 
-# id = factor(c("mAb", "llAb", "mVax", "mVax", "mVax", "mVax", "llAb"), levels = c("mAb", "llAb", "mVax"))
 # data frame for scenario analysis plot
 d <- data.frame(Scenario = c("Short-acting mAb","Short-acting mAb, URTI included", "Short-acting mAb, appropriate care", "Long-acting mAb", "Maternal vaccine", "Maternal vaccine, URTI included", "Maternal vaccine, appropriate care", "Maternal vaccine preferred characteristics", "Maternal vaccine, ResVax™ global dataset", "Maternal vaccine pre-seasonal administration", "Long-acting mAb birth-dose + catch-up", "Long-acting mAb, URTI included", "Long-acting mAb, appropriate care"),
                 CER = c(ct_mAb_bc, ct_URTI_mAb_bc, ct_cSA_mAb_bc, ct_llAb_bc, ct_mVax_bc, ct_URTI_mVax_bc, ct_cSA_mVax_bc, ct_PPC_mVax, ct_CmVax, ct_ps_mVax_bc, ct_SA_llAb_bc, ct_URTI_llAb_bc, ct_cSA_llAb_bc),

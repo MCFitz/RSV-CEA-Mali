@@ -1,3 +1,5 @@
+## intervention efficacy
+
 # build intervention efficacy parameter sampling distribution for llAb
 # based on llAb phase 2b clinical trial study results
 # for medically attended RSV in healthy pre-term infants through 150 days (5 months)
@@ -39,7 +41,7 @@ eff_mVax <- 1 - exp(mVax_RRsample)
 
 # intervention efficacy parameter sampling distribution for mVax with complete global dataset
 # (all clinical sites and hospital records from S.A., U.S. and elsewhere)
-# from NEJM....
+# from Griffin et al. 2020
 
 CmVax_eff_bc <- 0.414
 CmVax_RRm <- 1 - CmVax_eff_bc
@@ -56,22 +58,6 @@ eff_CmVax <- 1 - exp(CmVax_RRsample)
 # based on RSV IMpact trial (1998)
 # reductions in RSV hospitalizations Palivizumab compared to placebo
 # no BPD, premature
-
-# # mAb_eff_bc <- 0.55
-#   
-# mAb_RRm <- 1 - mAb_eff_bc
-# mAb_RRl <- 1 - 0.38
-# mAb_RRu <- 1 - 0.72
-# 
-# log(mAb_RRm) - log(mAb_RRl)
-# log(mAb_RRm) - log(mAb_RRu)
-# 
-# mAb_sd <- (log(mAb_RRl) - log(mAb_RRu)) / 3.92
-# 
-# mAb_RRsample <- rnorm(trials, log(mAb_RRm), mAb_sd)
-# 
-# eff_mAb <- 1 - exp(mAb_RRsample)
-# hist(eff_mAb)
 
 mAb_eff_bc <- 0.78
 mAb_eff_l <- 0.66

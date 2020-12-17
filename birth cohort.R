@@ -1,5 +1,6 @@
 # Simulate Malian birth cohort and calculate cases
-load("PostDistr.Rdata")
+trials <- 10000
+
 source("intervention efficacy.R") # load intervention efficacy data
 source("AR estimate.R")  # load attack rate data
 

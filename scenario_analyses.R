@@ -1,4 +1,62 @@
 ## 
+source("economic_outcomes.R")
+
+# Scenario analysis for WHO preferred product characteristics (PPCs) of mVax
+# Efficacy
+PPC_mVax <- 0.70
+
+# cohort matrix for PPC mVax efficacy
+PPC_mVax_dur <- empty_cohort
+PPC_mVax_month <- 4 # PPC: at least 4 months duration
+for (i in 1:12) {
+  PPC_mVax_dur[i, i:(i+(PPC_mVax_month-1))] <- 1
+}
+PPC_mVax_eff <- PPC_mVax_dur* PPC_mVax
+
+# PPC mVax cases calculation
+pd_PPC_mVax_mat_bc <- pd_calc(PPC_mVax_eff, p_mVax_bc, AR_bc, PPC_mVax_dur)
+cases_PPC_mVax_bc <- RSVcases(pd_PPC_mVax_mat_bc, num_infants)
+
+PPC_pd_mVax_array <- array(NA, dim = c(dim(AR_bc)[1], dim(AR_bc)[2], trials))
+for (m in 1:trials) {
+  PPC_pd_mVax_array[,,m] <- pd_calc(PPC_mVax_eff, p_mVax_bc, AR_u[,,m], PPC_mVax_dur)
+} 
+
+PPC_cases_mVax_u <- apply(PPC_pd_mVax_array, 3, RSVcases, babies = num_infants)
+
+# PPC prob pneumonia
+PPC_pneum_mVax_bc <- pneum_func(p_pneum, cases_PPC_mVax_bc)
+PPC_pneum_mVax_u <- pneum_func(p_pneum_u, PPC_cases_mVax_u)
+# PPC inpatient care
+PPC_inpatient_mVax_bc <- inpat_func(p_inpatient, PPC_pneum_mVax_bc)
+PPC_inpatient_mVax_u <- inpat_func(p_inpatient_u, PPC_pneum_mVax_u)
+# PPC appropriate level of care not received
+PPC_nr_care_mVax_bc <- nr_care_func(p_inpatient, PPC_pneum_mVax_bc)
+PPC_nr_care_mVax_u <- nr_care_func(p_inpatient_u, PPC_pneum_mVax_u)
+# PPC outpatient care
+PPC_outpat_mVax_bc <- outpat_func(p_inpatient, PPC_pneum_mVax_bc)
+PPC_outpat_mVax_u <- outpat_func(p_inpatient_u, PPC_pneum_mVax_u)
+# PPC mortality
+PPC_mortality_mVax_bc <- mort_inpat_func(CFR_inpatient, PPC_inpatient_mVax_bc, CFR_nr_care, PPC_nr_care_mVax_bc)
+PPC_mortality_mVax_u <- mort_inpat_func(CFR_inpatient_u, PPC_inpatient_mVax_u, CFR_nr_care_u, PPC_nr_care_mVax_u)
+# PPC med costs
+PPC_medcost_mVax_bc <- medcost_func(cost_hosp, PPC_inpatient_mVax_bc, cost_outpatient, PPC_outpat_mVax_bc)
+PPC_medcost_mVax_u <- medcost_func(cost_hosp_u, PPC_inpatient_mVax_u, cost_outpatient_u, PPC_outpat_mVax_u)
+# PPC_total costs for bc
+PPC_totalcost_mVax_bc <- progcost_mVax_bc + PPC_medcost_mVax_bc
+# PPC YLL
+PPC_YLL_mVax_bc <- YLL_func(PPC_mortality_mVax_bc)
+PPC_YLL_mVax_u <- YLL_func(PPC_mortality_mVax_u)
+# PPC YLD
+PPC_YLD_mVax_bc <- YLD_func(PPC_inpatient_mVax_bc, PPC_mortality_mVax_bc, di_yrs, dw_LRTI_severe, PPC_pneum_mVax_bc, dw_LRTI_mod)
+PPC_YLD_mVax_u <- YLD_func(PPC_inpatient_mVax_u, PPC_mortality_mVax_u, di_yrs_u, dw_LRTI_severe_u, PPC_pneum_mVax_u, dw_LRTI_mod_u)
+# PPC DALYs
+PPC_DALY_mVax_bc <- PPC_YLL_mVax_bc + PPC_YLD_mVax_bc
+PPC_DALY_mVax_u <- PPC_YLL_mVax_u + PPC_YLD_mVax_u
+# PPC DALYs saved
+PPC_DALY_saved_mVax_bc <- D_saved_func(DALY_mVax[1], PPC_DALY_mVax_bc)
+PPC_DALY_saved_mVax_u <- D_saved_func(DALY_no_u, PPC_DALY_mVax_u)
+
 # calculations for each intervention under alternate care-seeking/access scenario, where every child who requires care receives it and deaths only occur in hospitalized patients
 # cSA mAb
 inpatient_cSA_mAb_u <- inpat_cSA_func(p_inpatient_u, pneum_mAb_u)
@@ -69,15 +127,7 @@ DALY_URTI_mVax_u <- YLL_URTI_mVax_u + YLD_URTI_mVax_u
 DALY_saved_URTI_mVax_u <- D_saved_func(DALY_URTI_no_u, DALY_URTI_mVax_u)
 
 
-
-
 # ResVax pre-seasonal campaign scenario analysis
-# WTP = m (ct_mVax_ps) + 0
-# WTP / (ct_mVax_ps) = m
-# then y = m(x)
-# find the values of y for the sequence of cost values (x): seq(0, 500, by = 0.1)
-# m_ps <- CET_Mali_GDP / ct_ps_mVax_bc
-# y_ps <- m_ps * cost_range
 
 ps_mVax_admin <- mVax_admin
 for (i in 1:sim_mo) {
@@ -115,8 +165,6 @@ DALY_ps_mVax_u <- YLL_ps_mVax_u + YLD_ps_mVax_u
 DALY_saved_ps_mVax_u <- D_saved_func(DALY_no_u, DALY_ps_mVax_u)
 
 # ResVax complete Prepare™ trial dataset
-# m_cd <- CET_Mali_GDP / ct_CmVax
-# y_cd <- m_cd * cost_range
 
 CmVax_eff_mat <- mVax_dur * CmVax_eff_bc                               # efficacy matrix
 pd_CmVax_bc <- pd_calc(CmVax_eff_mat, p_mVax_bc, AR_bc, mVax_dur)     # probability of disease calculation point estimate
@@ -241,9 +289,7 @@ outpat_SA_llAb_u <- outpat_func(p_inpatient_u, pneum_SA_llAb_u)
 # calculate number of deaths
 CFR_inpat_year <- 0.015
 CFR_inpat_year_u <- rbeta(trials, 0.032*78, 0.429*380 - 0.032*78)
-# library(readr)
-# RSV_CFRByIteration_03MAL_LT12M <- read_csv("RSV_CFRByIteration_03MAL_LT12M.csv")
-# CFR_inpat_year_u <- sample(RSV_CFRByIteration_03MAL_LT12M$x , trials, replace = TRUE)
+
 CFR_nr_year <- CFR_inpat_year/0.51 * 0.49  # 49% of infants in LMIC with RSV-LRTI die outside of inpatient care setting
 CFR_nr_year_u <- CFR_inpat_year_u/ 0.51 * 0.49
 
@@ -289,18 +335,10 @@ ICER_func <- function(med_cost_no, med_cost, num_eligible, p_int, int_cost, DALY
 
 ICER_SA_llAb_bc <- ICER_func(medcost_no_year_bc, medcost_SA_llAb_bc, num_eligible_llAb_SA, p_llAb_bc, 3 + adcost_llAb, DALY_saved_SA_llAb_bc)
 
-# MAC_func <- function(WTP, ICER){
-#   ((WTP - ICER[1])/ (0.002 * (ICER[2] - ICER[1])))
-# }
-     
 ct_SA_llAb_bc <- ICER_SA_llAb_bc
 
 ##########
 ## Calculate cost threshold uncertainty distributions for all intervention scenarios
-# ctu_func <- function(medcost_no, med_cost, num_eligible, p_int, DALYs_averted){
-#   ICER_slope <- 0.002 * (((med_cost + (num_eligible * p_int * int_cost[2]) - medcost_no) / DALYs_averted) - ((med_cost - medcost_no_u)/ DALYs_averted))
-#   cost_threshold <- (CET_Mali_GDP - ICER_range_mAb[1]) / ICER_slope
-# }
 
 ctu_func <- function(medcost_no, med_cost, num_eligible, p_int, DALYs_averted){
   CER <- (med_cost + (num_eligible * p_int * (3 + adcost_llAb) - medcost_no)) / DALYs_averted

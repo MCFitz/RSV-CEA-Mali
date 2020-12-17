@@ -11,7 +11,7 @@ adcost_calc <- function (ad, cost_pd, cov){
 }
 SA_mAbcov_costs_ar <- array(NA, dim = c(dim(AR_bc)[1], dim(AR_bc)[2], length(SA_cov_vec)))
 for (aC in 1:length(SA_cov_vec)) {
-  SA_mAbcov_costs_ar[,,aC] <- adcost_calc(mAb_admin, cost_mAb_dose, SA_cov_vec[aC])
+  SA_mAbcov_costs_ar[,,aC] <- adcost_calc(mAb_admin, cost_mAb_dose+ adcost_llAb, SA_cov_vec[aC])
 } 
 SA_mAbcov_costs <- apply(SA_mAbcov_costs_ar* num_infants, 3, "sum")
 
@@ -57,7 +57,7 @@ MCA_mVax_u <- MCA_func(medcost_no_u, medcost_mVax_u)
 # create matrices for cost of llAb for birth cohort, by int. coverage
 SA_llAbcov_costs_ar <- array(NA, dim = c(dim(AR_bc)[1], dim(AR_bc)[2], length(SA_cov_vec)))
 for (aC in 1:length(SA_cov_vec)) {
-  SA_llAbcov_costs_ar[,,aC] <- adcost_calc(llAb_admin, cost_mAb_dose, SA_cov_vec[aC])
+  SA_llAbcov_costs_ar[,,aC] <- adcost_calc(llAb_admin, cost_mAb_dose+ adcost_llAb, SA_cov_vec[aC])
 } 
 SA_llAbcov_costs <- apply(SA_llAbcov_costs_ar* num_infants, 3, "sum")
 
@@ -67,7 +67,7 @@ progcost_llAb_bc <- sum(adcost_calc(llAb_admin, cost_mAb_dose, p_llAb_bc)* num_i
 # calculate mVax programmatic costs by int. coverage
 SA_mVaxcov_costs_ar <- array(NA, dim = c(dim(AR_bc)[1], dim(AR_bc)[2], length(SA_cov_vec)))
 for (aC in 1:length(SA_cov_vec)) {
-  SA_mVaxcov_costs_ar[,,aC] <- adcost_calc(mVax_admin, cost_mVax, SA_cov_vec[aC])
+  SA_mVaxcov_costs_ar[,,aC] <- adcost_calc(mVax_admin, cost_mVax+ adcost_llAb, SA_cov_vec[aC])
 } 
 SA_mVaxcov_costs <- apply(SA_mVaxcov_costs_ar* num_infants, 3, "sum")
 
@@ -160,7 +160,7 @@ D_saved_func <- function(no_D, int_D){
 }
 
 DALY_saved_mAb <- D_saved_func(DALY_mAb[1], DALY_mAb)           # by intervention coverage (vector)
-DALY_saved_mAb_bc <- D_saved_func(DALY_mAb[1], DALY_mAb_bc)     # base case
+DALY_saved_mAb_bc <- D_saved_func(DALY_mAb[1], DALY_mAb_bc)     # point estimate/ base case
 DALY_saved_mAb_u <- D_saved_func(DALY_no_u, DALY_mAb_u)         # uncertainty
 DALY_saved_mVax <- D_saved_func(DALY_mVax[1], DALY_mVax)
 DALY_saved_mVax_bc <- D_saved_func(DALY_mVax[1], DALY_mVax_bc)
@@ -250,15 +250,7 @@ NHB_func <- function (inputs, WTP) {
   NHB
 }
 
-# NHB_func <- function (inputs, WTP) {
-#   medcost <- inputs[,1]
-#   DALY_saved <- inputs[,2]
-#   prog_cost <- inputs[,3]
-#   NHB <- DALY_saved - ((medcost + prog_cost)- medcost_no_u)/WTP
-#   NHB
-# }
-
-WTP_sp <- c(0.01, seq(10, 15*CET_Mali_GDP, by = 5))
+WTP_sp <- c(0.01, seq(10, 20*CET_Mali_GDP, by = 5))
 
 # donor perspective
 progcost_mAb_3 <- num_infants_eligible_mAb * p_mAb_bc * (3-.20)
@@ -343,31 +335,31 @@ for (gm in 1: length(WTP_sp)){
   pce_gov_mVax[gm] <- sum(NHB_gm >0)/trials
 }
 
-## mVax vs llAb, head to head cost per dose NHB comparison
-
-mVax_h2h <- seq(1, 10, length.out = 50)
-llAb_h2h <- seq(1, 10, length.out = 40)
-
-mVax_h2h_mat <- matrix (mVax_h2h, nrow = length(mVax_h2h), ncol = length(llAb_h2h), byrow = FALSE)
-llAb_h2h_mat <- matrix (llAb_h2h, nrow = length(mVax_h2h), ncol = length(llAb_h2h), byrow = TRUE)
-
-mVax_data_frame <- cbind(medcost_mVax_u, DALY_saved_mVax_u, medcost_no_u)
-llAb_data_frame <- cbind(medcost_llAb_u, DALY_saved_llAb_u, medcost_no_u)
-
-NHB_h2h <- function (USD_price, inputs, p_int, num_eligible){
-  WTP <- CET_Mali_GDP
-  medcost_u <- inputs[,1]
-  DALY_saved_u <- inputs[,2]
-  medcost_no_u <- inputs[,3]
-  NHB_1 <- DALY_saved_u - ((medcost_u + (USD_price * num_eligible * p_int)) - medcost_no_u)/WTP
-}
-
-NHB_mVax <- mapply(NHB_h2h, mVax_h2h_mat, 
-                   MoreArgs = list(mVax_data_frame, p_mVax_bc, sum(num_infants)))
-NHB_llAb <- mapply(NHB_h2h, llAb_h2h_mat, 
-                   MoreArgs = list(llAb_data_frame, p_llAb_bc, num_infants_eligible_llAb))
-
-mVax_winner <- NHB_mVax > NHB_llAb
-prob_mVax_wins <- colSums(mVax_winner)/trials
-prob_matrix <- matrix(prob_mVax_wins, nrow = length(mVax_h2h), ncol = length(llAb_h2h))
+# ## mVax vs llAb, head to head cost per dose NHB comparison
+# 
+# mVax_h2h <- seq(1, 10, length.out = 50)
+# llAb_h2h <- seq(1, 10, length.out = 40)
+# 
+# mVax_h2h_mat <- matrix (mVax_h2h, nrow = length(mVax_h2h), ncol = length(llAb_h2h), byrow = FALSE)
+# llAb_h2h_mat <- matrix (llAb_h2h, nrow = length(mVax_h2h), ncol = length(llAb_h2h), byrow = TRUE)
+# 
+# mVax_data_frame <- cbind(medcost_mVax_u, DALY_saved_mVax_u, medcost_no_u)
+# llAb_data_frame <- cbind(medcost_llAb_u, DALY_saved_llAb_u, medcost_no_u)
+# 
+# NHB_h2h <- function (USD_price, inputs, p_int, num_eligible){
+#   WTP <- CET_Mali_GDP
+#   medcost_u <- inputs[,1]
+#   DALY_saved_u <- inputs[,2]
+#   medcost_no_u <- inputs[,3]
+#   NHB_1 <- DALY_saved_u - ((medcost_u + (USD_price * num_eligible * p_int)) - medcost_no_u)/WTP
+# }
+# 
+# NHB_mVax <- mapply(NHB_h2h, mVax_h2h_mat, 
+#                    MoreArgs = list(mVax_data_frame, p_mVax_bc, sum(num_infants)))
+# NHB_llAb <- mapply(NHB_h2h, llAb_h2h_mat, 
+#                    MoreArgs = list(llAb_data_frame, p_llAb_bc, num_infants_eligible_llAb))
+# 
+# mVax_winner <- NHB_mVax > NHB_llAb
+# prob_mVax_wins <- colSums(mVax_winner)/trials
+# prob_matrix <- matrix(prob_mVax_wins, nrow = length(mVax_h2h), ncol = length(llAb_h2h))
 
