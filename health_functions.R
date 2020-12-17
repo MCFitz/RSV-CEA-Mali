@@ -19,9 +19,16 @@ inpat_cSA_func <- function(p_inpat, num_pneum){
   p_inpat* num_pneum
 }
 
+# calculate number of infants receiving outpatient care
+outpat_func <- function(p_inpat, num_pneum){
+  ((1-p_inpat) * num_pneum)
+}
+
+outpat_URTI_func <- function(p_inpat, num_pneum, febARI){
+  ((1-p_inpat) * num_pneum) + (febARI * p_outpat_febARI_u)
+}
 
 # calculate number of infants not receiving appropriate level of care
-# 53% of infants in LMIC with RSV-LRTI do not receive appropriate level of care
 nr_care_func <- function(p_inpat, num_pneum){
   p_inpat* num_pneum * (1-p_seek_care)
 }

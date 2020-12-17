@@ -69,15 +69,7 @@ DALY_URTI_mVax_u <- YLL_URTI_mVax_u + YLD_URTI_mVax_u
 DALY_saved_URTI_mVax_u <- D_saved_func(DALY_URTI_no_u, DALY_URTI_mVax_u)
 
 
-
-
 # ResVax pre-seasonal campaign scenario analysis
-# WTP = m (ct_mVax_ps) + 0
-# WTP / (ct_mVax_ps) = m
-# then y = m(x)
-# find the values of y for the sequence of cost values (x): seq(0, 500, by = 0.1)
-# m_ps <- CET_Mali_GDP / ct_ps_mVax_bc
-# y_ps <- m_ps * cost_range
 
 ps_mVax_admin <- mVax_admin
 for (i in 1:sim_mo) {
@@ -115,8 +107,6 @@ DALY_ps_mVax_u <- YLL_ps_mVax_u + YLD_ps_mVax_u
 DALY_saved_ps_mVax_u <- D_saved_func(DALY_no_u, DALY_ps_mVax_u)
 
 # ResVax complete Prepare™ trial dataset
-# m_cd <- CET_Mali_GDP / ct_CmVax
-# y_cd <- m_cd * cost_range
 
 CmVax_eff_mat <- mVax_dur * CmVax_eff_bc                               # efficacy matrix
 pd_CmVax_bc <- pd_calc(CmVax_eff_mat, p_mVax_bc, AR_bc, mVax_dur)     # probability of disease calculation point estimate
@@ -241,9 +231,7 @@ outpat_SA_llAb_u <- outpat_func(p_inpatient_u, pneum_SA_llAb_u)
 # calculate number of deaths
 CFR_inpat_year <- 0.015
 CFR_inpat_year_u <- rbeta(trials, 0.032*78, 0.429*380 - 0.032*78)
-# library(readr)
-# RSV_CFRByIteration_03MAL_LT12M <- read_csv("RSV_CFRByIteration_03MAL_LT12M.csv")
-# CFR_inpat_year_u <- sample(RSV_CFRByIteration_03MAL_LT12M$x , trials, replace = TRUE)
+
 CFR_nr_year <- CFR_inpat_year/0.51 * 0.49  # 49% of infants in LMIC with RSV-LRTI die outside of inpatient care setting
 CFR_nr_year_u <- CFR_inpat_year_u/ 0.51 * 0.49
 
@@ -289,18 +277,10 @@ ICER_func <- function(med_cost_no, med_cost, num_eligible, p_int, int_cost, DALY
 
 ICER_SA_llAb_bc <- ICER_func(medcost_no_year_bc, medcost_SA_llAb_bc, num_eligible_llAb_SA, p_llAb_bc, 3 + adcost_llAb, DALY_saved_SA_llAb_bc)
 
-# MAC_func <- function(WTP, ICER){
-#   ((WTP - ICER[1])/ (0.002 * (ICER[2] - ICER[1])))
-# }
-     
 ct_SA_llAb_bc <- ICER_SA_llAb_bc
 
 ##########
 ## Calculate cost threshold uncertainty distributions for all intervention scenarios
-# ctu_func <- function(medcost_no, med_cost, num_eligible, p_int, DALYs_averted){
-#   ICER_slope <- 0.002 * (((med_cost + (num_eligible * p_int * int_cost[2]) - medcost_no) / DALYs_averted) - ((med_cost - medcost_no_u)/ DALYs_averted))
-#   cost_threshold <- (CET_Mali_GDP - ICER_range_mAb[1]) / ICER_slope
-# }
 
 ctu_func <- function(medcost_no, med_cost, num_eligible, p_int, DALYs_averted){
   CER <- (med_cost + (num_eligible * p_int * (3 + adcost_llAb) - medcost_no)) / DALYs_averted
