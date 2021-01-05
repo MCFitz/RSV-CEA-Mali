@@ -52,13 +52,8 @@ inpatient_llAb <- inpat_func(p_inpatient, pneum_llAb)
 inpatient_llAb_bc <- inpat_func(p_inpatient, pneum_llAb_bc)
 inpatient_llAb_u <- inpat_func(p_inpatient_u, pneum_llAb_u)
 
-<<<<<<< HEAD
-# # calculate number of infants not receiving appropriate level of care
-# # 53% of infants in LMIC with RSV-LRTI do not receive appropriate level of care
-=======
 # calculate number of infants not receiving appropriate level of care
 # 53% of infants in LMIC with RSV-LRTI do not receive appropriate level of care
->>>>>>> NewPriors
 
 nr_care_no_u <- nr_care_func(p_inpatient_u, pneum_no_u)
 nr_care_mAb <- nr_care_func(p_inpatient, pneum_mAb)
@@ -89,7 +84,6 @@ outpat_llAb_bc <- outpat_func(p_inpatient, pneum_llAb_bc)
 outpat_llAb_u <- outpat_func(p_inpatient_u, pneum_llAb_u)
 
 # CFRs
-<<<<<<< HEAD
 # 7 out of 117 died from PERCH Mali from age 28 days to 6 months
 # 1 out of 13 for Buchwald et al. study
 
@@ -102,16 +96,10 @@ CFR_inpatient_u <- rbeta(trials, 0.05*48, 0.552*259 - 0.05*48)
 # CFR_inpatient <- 0.0598 # PERCH TRAD CALC
 # CFR_inpatient_u <- rbeta(trials, 7, 110)
 
-# library(readr)
-# RSV_CFRByIteration_03MAL_LT6M <- read_csv("RSV_CFRByIteration_03MAL_LT6M.csv")
-# CFR_inpatient_u <- sample(RSV_CFRByIteration_03MAL_LT6M$cfr.19..., trials, replace = TRUE)
-=======
 # from PERCH Mali, PIA calculation
-
 CFR_inpatient <- 0.016
 CFR_inpatient_u <- rbeta(trials, 0.05*48, 0.552*259 - 0.05*48)
 
->>>>>>> NewPriors
 CFR_nr_care <- CFR_inpatient/0.51 * 0.49  # 49% of infants in LMIC with RSV-LRTI die outside of inpatient care setting
 CFR_nr_care_u <- CFR_inpatient_u/ 0.51 * 0.49
 

@@ -21,10 +21,12 @@ CET <- rep.int(891, 5001) #  Mali GDP pc
 #####
 
 # # Uncertainty across WTP threshold
-quartz("Uncertainty_2ab", 10, 4)
+# quartz("Uncertainty_2ab", 10, 4)
+quartz("PanelFig", 10, 10)
 par(lwd = 3, xaxs = "i", yaxs = "i")
-par(mfrow = c(1,2))
+par(mfrow = c(2,2))
 par(mar = c(4, 4, 2, 2))
+# par(oma = c(4, 1, 1, 1))
 
 plot(WTP_sp, pce_donor_llAb_3, ylim = c(0, 1), xlim = c(0,10000), bty = "l",
      type = "l", col = UMBforest,
@@ -39,8 +41,8 @@ abline( v = CET_Mali_GDP, col = UMBgray, lty = 3)
 text(CET_Mali_GDP, 0.92, labels = "1xGDP", srt = 45, cex = 0.80)
 # abline(v = 3* CET_Mali_GDP, col = UMBgray, lty = 3)
 # text(3*CET_Mali_GDP, 0.92, labels = "3xGDP", srt = 45, cex = 0.80)
-legend(locator(1), legend = c("Short-acting mAb, $3", "Short-acting mAb, $9", "Long-acting mAb, $3", "Long-acting mAb, $9", "Maternal vaccine, $3", "Maternal vaccine, $9"), cex = 0.8, lty = c(1, 2, 1, 2, 1, 2),
-       col = c(UMBsea, UMBsea, UMBforest, UMBforest, UMBblue, UMBblue), bty = "n")
+# legend(locator(1), legend = c("Short-acting mAb, $3", "Short-acting mAb, $9", "Long-acting mAb, $3", "Long-acting mAb, $9", "Maternal vaccine, $3", "Maternal vaccine, $9"), cex = 0.8, lty = c(1, 2, 1, 2, 1, 2),
+# col = c(UMBsea, UMBsea, UMBforest, UMBforest, UMBblue, UMBblue), bty = "n")
 
 plot(WTP_sp, pce_gov_llAb, ylim = c(0, 1), xlim = c(0,10000), bty = "l",
      type = "l", col = UMBforest,
@@ -52,9 +54,9 @@ abline( v = CET_Mali_GDP, col = UMBgray, lty = 3)
 text(CET_Mali_GDP, 0.92, labels = "1xGDP", srt = 45, cex = 0.8)
 # abline(v = 3* CET_Mali_GDP, col = UMBgray, lty = 3)
 # text(3*CET_Mali_GDP, 0.92, labels = "3xGDP", srt = 45, cex = 0.8)
-legend("bottomright", legend = c("Long-acting mAb", "Short-acting mAb", "Maternal vaccine"), lty = c(1, 1, 1),
-       col = c(UMBforest, UMBsea, UMBblue), bty = "n")
-quartz.save(file = "Figures/uncertainty_fig2ab.pdf", type = "pdf")
+# legend("bottomright", legend = c("Long-acting mAb", "Short-acting mAb", "Maternal vaccine"), lty = c(1, 1, 1),
+#        col = c(UMBforest, UMBsea, UMBblue), bty = "n")
+# quartz.save(file = "Figures/uncertainty_fig2ab.pdf", type = "pdf")
 
 # # Probability mVax has greater NHB than llAb
 # ####
@@ -68,9 +70,9 @@ quartz.save(file = "Figures/uncertainty_fig2ab.pdf", type = "pdf")
 
 #####
 
-quartz("DALYandICER", 7, 4)
+# quartz("DALYandICER", 7, 4)
 par(lwd = 3, xaxs = "i", yaxs = "i")
-par(mfrow = c(1,2))
+# par(mfrow = c(1,2))
 par(mar = c(4, 4, 2, 2))
 int_cov <- seq(0, 100, by = 20)
 
@@ -79,8 +81,8 @@ plot(int_cov, DALY_saved_mAb, ylim = c(0, 1750), col = UMBsea, type = "l", bty =
      ylab = "DALYs averted")
 lines(int_cov, DALY_saved_mVax, col = UMBblue)
 lines(int_cov, DALY_saved_llAb, col = UMBforest)
-legend("topleft", legend = c("Maternal vaccine", "Short-acting mAb", "Long-acting mAb"), lty = c(1,1,1), bty = "n",
-       col = c(UMBblue, UMBsea, UMBforest, UMBblue, UMBforest))
+# legend("topleft", legend = c("Maternal vaccine", "Short-acting mAb", "Long-acting mAb"), lty = c(1,1,1), bty = "n",
+#        col = c(UMBblue, UMBsea, UMBforest, UMBblue, UMBforest))
 
 pricelim <- 71
 plot(cost_range[1:pricelim], ICER_range_mVax[1:pricelim], col = UMBblue, type = "l", bty = "l",
@@ -92,9 +94,14 @@ lines(cost_range, CET, col = UMBgray, lty = 3)
 text(6, CET_Mali_GDP + 250, labels = "1xGDP", cex = 0.80)
 # lines(cost_range, CET*3, col = UMBgray, lty =3)
 # text(6, 3*CET_Mali_GDP + 250, labels = "3xGDP", cex = 0.80)
-legend("topleft", inset = c(-.05, 0), legend =c("Maternal vaccine", "Short-acting mAb", "Long-acting mAb"), 
-       lty = c(1,1,1), col = c(UMBblue, UMBsea, UMBforest), bty = "n")
-quartz.save(file = "Figures/DALYSandICER.pdf", type = "pdf")
+# legend("topleft", inset = c(-.05, 0), legend =c("Maternal vaccine", "Short-acting mAb", "Long-acting mAb"), 
+#        lty = c(1,1,1), col = c(UMBblue, UMBsea, UMBforest), bty = "n")
+par(fig = c(0, 1, 0, 1), oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0), new = TRUE)
+plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n")
+# legend("bottom", legend = c("Short-acting mAb, $3", "Short-acting mAb, $9", "Long-acting mAb, $3", "Long-acting mAb, $9", "Maternal vaccine, $3", "Maternal vaccine, $9"), cex = 0.8, lty = c(1, 2, 1, 2, 1, 2),
+#        col = c(UMBsea, UMBsea, UMBforest, UMBforest, UMBblue, UMBblue), bty = "n", horiz = TRUE)
+# quartz.save(file = "Figures/DALYSandICER.pdf", type = "pdf")
+quartz.save(file = "Figures/PanelFig.pdf", type = "pdf")
 ###
 
 
