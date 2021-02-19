@@ -349,6 +349,10 @@ ct_mAb_u <- ctu_func(medcost_no_u, medcost_mAb_u, num_infants_eligible_mAb, p_mA
 ct_llAb_u <- ctu_func(medcost_no_u, medcost_llAb_u, num_infants_eligible_llAb, p_llAb_bc, DALY_saved_llAb_u)
 ct_mVax_u <- ctu_func(medcost_no_u, medcost_mVax_u, num_infants_eligible_mVax, p_mVax_bc, DALY_saved_mVax_u)
 
+# for alternate CFRs
+ct_mAb_Ptrad_u <- ctu_func(medcost_no_u, medcost_mAb_u, num_infants_eligible_mAb, p_mAb_bc, DALY_saved_mAb_Ptrad_u)
+ct_mAb_buchwald_u <- ctu_func(medcost_no_u, medcost_mAb_u, num_infants_eligible_mAb, p_mAb_bc, DALY_saved_mAb_buchwald_u)
+
 #for scenario analyses
 # mVax PPC
 ct_PPC_mVax_u <- ctu_func(medcost_no_u, PPC_medcost_mVax_u, num_infants_eligible_mVax, p_mVax_bc, PPC_DALY_saved_mVax_u)

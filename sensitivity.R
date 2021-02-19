@@ -514,4 +514,13 @@ ct_cSA_llAb_bc <- CER_cSA(cases_llAb_bc, p_pneum, p_inpatient, CFR_inpatient, dw
 
 ct_cSA_mVax_bc <- CER_cSA(cases_mVax_bc, p_pneum, p_inpatient, CFR_inpatient, dw_LRTI_severe, dw_LRTI_mod,
                          di_yrs, p_mVax_bc, num_infants_eligible_mVax, cost_hosp, cost_outpatient)
+
+## ICER for alternate CFR analysis
+PERCH_trad_mAb_bc <- CER_func(cases_mAb_bc, p_pneum, p_inpatient, CFR_inpatient_PERCH_trad, dw_LRTI_severe, dw_LRTI_mod,
+                      di_yrs, p_mAb_bc, num_infants_eligible_mAb, cost_hosp, cost_outpatient)
+
+buchwald_mAb_bc <- CER_func(cases_mAb_bc, p_pneum, p_inpatient, CFR_inpatient_buchwald, dw_LRTI_severe, dw_LRTI_mod,
+                                di_yrs, p_mAb_bc, num_infants_eligible_mAb, cost_hosp, cost_outpatient)
+
+
   

@@ -87,21 +87,23 @@ outpat_llAb_u <- outpat_func(p_inpatient_u, pneum_llAb_u)
 # 7 out of 117 died from PERCH Mali from age 28 days to 6 months
 # 1 out of 13 for Buchwald et al. study
 
-# CFR_inpatient <- 1/13     # MALI INCIDENCE STUDY, BUCHWALD
-# CFR_inpatient_u <- rbeta(trials, 1, 12)
-
-CFR_inpatient <- 0.016  # PERCH PIA
+CFR_inpatient <- 0.016  # PERCH Mali, PIA
 CFR_inpatient_u <- rbeta(trials, 0.05*48, 0.552*259 - 0.05*48)
 
-# CFR_inpatient <- 0.0598 # PERCH TRAD CALC
-# CFR_inpatient_u <- rbeta(trials, 7, 110)
+CFR_inpatient_PERCH_trad <- 0.0598 # PERCH TRAD CALC
+CFR_inpatient_PERCH_trad_u <- rbeta(trials, 7, 110)
 
-# from PERCH Mali, PIA calculation
-CFR_inpatient <- 0.016
-CFR_inpatient_u <- rbeta(trials, 0.05*48, 0.552*259 - 0.05*48)
+CFR_inpatient_buchwald <- 1/13     # MALI INCIDENCE STUDY, BUCHWALD
+CFR_inpatient_buchwald_u <- rbeta(trials, 1, 12)
 
 CFR_nr_care <- CFR_inpatient/0.51 * 0.49  # 49% of infants in LMIC with RSV-LRTI die outside of inpatient care setting
 CFR_nr_care_u <- CFR_inpatient_u/ 0.51 * 0.49
+
+CFR_nr_care_PERCH_trad <- CFR_inpatient_PERCH_trad/ 0.51 * 0.49
+CFR_nr_care_PERCH_trad_u <- CFR_inpatient_PERCH_trad_u / 0.51 * 0.49
+
+CFR_nr_care_buchwald <- CFR_inpatient_buchwald / 0.51 * 0.49
+CFR_nr_care_buchwald_u <- CFR_inpatient_buchwald_u / 0.51 * 0.49
 
 mortality_no_u <- mort_inpat_func(CFR_inpatient_u, inpatient_no_u, CFR_nr_care_u, nr_care_no_u) # no intervention
 mortality_cSA_no_u <- mort_cSA_func(CFR_inpatient_u, inpatient_cSA_no_u)  # no intervention, scenario for adequate care provided
@@ -114,5 +116,12 @@ mortality_mVax_u <- mort_inpat_func(CFR_inpatient_u, inpatient_mVax_u, CFR_nr_ca
 mortality_llAb <- mort_inpat_func(CFR_inpatient, inpatient_llAb, CFR_nr_care, nr_care_llAb)
 mortality_llAb_bc <- mort_inpat_func(CFR_inpatient, inpatient_llAb_bc, CFR_nr_care, nr_care_llAb_bc)
 mortality_llAb_u <- mort_inpat_func(CFR_inpatient_u, inpatient_llAb_u, CFR_nr_care_u, nr_care_llAb_u)
+
+# Number who die under alternate CFR
+mortality_no_Ptrad_u <- mort_inpat_func(CFR_inpatient_PERCH_trad_u, inpatient_no_u, CFR_nr_care_u, nr_care_no_u)
+mortality_mAb_Ptrad_u <- mort_inpat_func(CFR_inpatient_PERCH_trad_u, inpatient_mAb_u, CFR_nr_care_u, nr_care_mAb_u)
+
+mortality_no_buchwald_u <- mort_inpat_func(CFR_inpatient_buchwald_u, inpatient_no_u, CFR_nr_care_u, nr_care_no_u)
+mortality_mAb_buchwald_u <- mort_inpat_func(CFR_inpatient_buchwald_u, inpatient_mAb_u, CFR_nr_care_u, nr_care_mAb_u)
 
 ##

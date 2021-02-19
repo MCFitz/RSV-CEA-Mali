@@ -239,3 +239,22 @@ ggplot() +
 quartz.save(file = "Figures/Scenarios.pdf", type = "pdf")
 
 ####
+
+# CFR analysis, palivizumab ICER plot
+CFR_p <- data.frame(CFR = c("PERCH PIA", "PERCH traditional", "Buchwald et al."),
+                ICER = c(ct_mAb_bc, PERCH_trad_mAb_bc, buchwald_mAb_bc),
+                lower = c(CI_ct_mAb[1], CI_ct_mAb_Ptrad[1], CI_ct_mAb_buchwald[1]),
+                upper = c(CI_ct_mAb[2], CI_ct_mAb_Ptrad[2], CI_ct_mAb_buchwald[2]))
+quartz("CFR Analysis", 11, 7)
+par(lwd = 3)
+par(mfrow = c(1,1))
+par(mar = c(4, 4, 2, 2))
+ggplot() + 
+  geom_point(data = CFR_p, mapping = aes(x = ICER, y = CFR), size = 4, shape = 21, fill = c(UMBsea, UMBplum, UMBblue)) +
+  geom_errorbar(data = CFR_p, mapping = aes(y= CFR, xmin = lower, xmax = upper), width = 0.2, size =1, color = c(UMBsea, UMBplum, UMBblue)) +
+  theme(text = element_text(size=15)) +
+  xlab("Incremental cost-effectiveness ratio") + 
+  ylab("")
+quartz.save(file = "Figures/CFR_analysis.pdf", type = "pdf")
+
+####

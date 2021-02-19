@@ -112,6 +112,12 @@ YLL_llAb <- YLL_func(mortality_llAb)
 YLL_llAb_bc <- YLL_func(mortality_llAb_bc)
 YLL_llAb_u <- YLL_func(mortality_llAb_u)
 
+# Years of life lost for alternate CFRs
+YLL_no_Ptrad_u <- YLL_func(mortality_no_Ptrad_u)
+YLL_mAb_Ptrad_u <- YLL_func(mortality_mAb_Ptrad_u)
+YLL_no_buchwald_u <- YLL_func(mortality_no_buchwald_u)
+YLL_mAb_buchwald_u <- YLL_func(mortality_mAb_buchwald_u)
+
 # calculate YLD for each intervention by int. coverage
 
 YLD_func <- function(num_inpat, num_mort, di, dw_LRTI_s, num_pneum, dw_LRTI_m) {
@@ -139,6 +145,12 @@ YLD_llAb <- YLD_func(inpatient_llAb, mortality_llAb, di_yrs, dw_LRTI_severe, pne
 YLD_llAb_bc <- YLD_func(inpatient_llAb_bc, mortality_llAb_bc, di_yrs, dw_LRTI_severe, pneum_llAb_bc, dw_LRTI_mod)
 YLD_llAb_u <- YLD_func(inpatient_llAb_u, mortality_llAb_u, di_yrs_u, dw_LRTI_severe_u, pneum_llAb_u, dw_LRTI_mod_u)
 
+# Years of life lived with disability for alternate CFRs
+YLD_no_Ptrad_u <- YLD_func(inpatient_no_u, mortality_no_Ptrad_u, di_yrs_u, dw_LRTI_severe_u, pneum_no_u, dw_LRTI_mod_u)
+YLD_mAb_Ptrad_u <- YLD_func(inpatient_mAb_u, mortality_mAb_Ptrad_u, di_yrs_u, dw_LRTI_severe_u, pneum_mAb_u, dw_LRTI_mod_u)
+YLD_no_buchwald_u <- YLD_func(inpatient_no_u, mortality_no_buchwald_u, di_yrs_u, dw_LRTI_severe_u, pneum_no_u, dw_LRTI_mod_u)
+YLD_mAb_buchwald_u <- YLD_func(inpatient_mAb_u, mortality_mAb_buchwald_u, di_yrs_u, dw_LRTI_severe_u, pneum_mAb_u, dw_LRTI_mod_u)
+
 # calculate DALYs lost for each intervention
 # prior to discounting
 DALY_no_u <- YLL_no_u + YLD_no_u
@@ -154,7 +166,13 @@ DALY_llAb <- YLL_llAb + YLD_llAb
 DALY_llAb_bc <- YLL_llAb_bc + YLD_llAb_bc
 DALY_llAb_u <- YLL_llAb_u + YLD_llAb_u
 
-# calculate DALYS saved for each intervention
+# Disability adjusted life-years for alternate CFRs
+DALY_no_Ptrad_u <- YLL_no_Ptrad_u + YLD_no_Ptrad_u
+DALY_mAb_Ptrad_u <- YLL_mAb_Ptrad_u + YLD_mAb_Ptrad_u
+DALY_no_buchwald_u <- YLL_no_buchwald_u + YLD_no_buchwald_u
+DALY_mAb_buchwald_u <- YLL_mAb_buchwald_u + YLD_mAb_buchwald_u
+
+# calculate DALYs saved for each intervention
 D_saved_func <- function(no_D, int_D){
   (no_D - int_D)
 }
@@ -168,6 +186,10 @@ DALY_saved_mVax_u <- D_saved_func(DALY_no_u, DALY_mVax_u)
 DALY_saved_llAb <- D_saved_func(DALY_llAb[1], DALY_llAb)
 DALY_saved_llAb_bc <- D_saved_func(DALY_llAb[1], DALY_llAb_bc)
 DALY_saved_llAb_u <- D_saved_func(DALY_no_u, DALY_llAb_u)
+
+# DALYs saved for alternate CFRs
+DALY_saved_mAb_Ptrad_u <- D_saved_func(DALY_no_Ptrad_u, DALY_mAb_Ptrad_u)   
+DALY_saved_mAb_buchwald_u <- D_saved_func(DALY_no_buchwald_u, DALY_mAb_buchwald_u)   
 
 # Calculate ICER by cost per dose of intervention
 cost_range <- seq(0, 500, by = 0.1)

@@ -49,7 +49,7 @@ CI_MCA_mAb <- CI_func(MCA_mAb_u)
 CI_MCA_llAb <- CI_func(MCA_llAb_u)
 CI_MCA_mVax <- CI_func(MCA_mVax_u)
 
-## Confidence intervals for maximum acceptable cost per dose
+## Confidence intervals for ICERs
 CI_ct_mAb <- CI_func(ct_mAb_u)            # for each base case intervention
 CI_ct_llAb <- CI_func(ct_llAb_u)
 CI_ct_mVax <- CI_func(ct_mVax_u)
@@ -67,6 +67,9 @@ CI_ct_cSA_mAb <- CI_func(ct_cSA_mAb_u)    # appropriate care achieved
 CI_ct_cSA_llAb <- CI_func(ct_cSA_llAb_u)
 CI_ct_cSA_mVax <- CI_func(ct_cSA_mVax_u)
 
+# Confidence intervals for alternate CFRs
+CI_ct_mAb_Ptrad <- CI_func(ct_mAb_Ptrad_u)
+CI_ct_mAb_buchwald <- CI_func(ct_mAb_buchwald_u)
 
 
 
