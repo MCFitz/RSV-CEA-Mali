@@ -241,7 +241,7 @@ quartz.save(file = "Figures/Scenarios.pdf", type = "pdf")
 ####
 
 # CFR analysis, palivizumab ICER plot
-CFR_p <- data.frame(CFR = c("PERCH PIA", "PERCH traditional", "Buchwald et al."),
+CFR_p <- data.frame(CFR = c("A PERCH IA", "B PERCH traditional", "C Buchwald et al."),
                 ICER = c(ct_mAb_bc, PERCH_trad_mAb_bc, buchwald_mAb_bc),
                 lower = c(CI_ct_mAb[1], CI_ct_mAb_Ptrad[1], CI_ct_mAb_buchwald[1]),
                 upper = c(CI_ct_mAb[2], CI_ct_mAb_Ptrad[2], CI_ct_mAb_buchwald[2]))

@@ -1,6 +1,6 @@
 # RSV-CEA-Mali README
 
-Code published in this repository was used to generate results for the published work titled Cost-effectiveness of infant respiratory syncytial virus preventive interventions in Mali: a modelling study to inform policy and investment decisions.
+Code published in this repository was used to generate results for the published work titled "Cost-effectiveness of infant respiratory syncytial virus preventive interventions in Mali: a modelling study to inform policy and investment decisions.""
 
 The "CostData.R" script contains Mali-specific cost input data.
 The "EffectData.R" script contains Mali-specific health impact data used to calculate DALYs.

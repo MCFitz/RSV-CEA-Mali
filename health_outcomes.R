@@ -10,6 +10,7 @@ ILI_positivity <- rbeta(trials, 110, 379-110)
 p_pneum_u <- rbeta(trials, 43, 110 + ILI_positivity*839)
 p_pneum <- 43/(110+839*(110/379))
 
+pneum_no_bc <- pneum_func(p_pneum, cases_no_bc)
 pneum_no_u <- pneum_func(p_pneum_u, cases_no_u)   # number of infants with pneumonia under no intervention, uncertainty
 pneum_mAb <- pneum_func(p_pneum, SA_mAbcov_cases) # SA for int. coverage
 pneum_mAb_bc <- pneum_func(p_pneum, cases_mAb_bc) # point estimate / base case
@@ -40,6 +41,7 @@ p_seek_care <- 0.47
 p_inpatient_u <- rbeta(trials, 13, 30)
 p_inpatient <- 13/43
 
+inpatient_no_bc <- inpat_func(p_inpatient, pneum_no_bc)
 inpatient_no_u <- inpat_func(p_inpatient_u, pneum_no_u)
 inpatient_cSA_no_u <- inpat_cSA_func(p_inpatient_u, pneum_no_u)   # analysis for adequate care scenario
 inpatient_mAb <- inpat_func(p_inpatient, pneum_mAb)
@@ -55,6 +57,7 @@ inpatient_llAb_u <- inpat_func(p_inpatient_u, pneum_llAb_u)
 # calculate number of infants not receiving appropriate level of care
 # 53% of infants in LMIC with RSV-LRTI do not receive appropriate level of care
 
+nr_care_no_bc <- nr_care_func(p_inpatient, pneum_no_bc)
 nr_care_no_u <- nr_care_func(p_inpatient_u, pneum_no_u)
 nr_care_mAb <- nr_care_func(p_inpatient, pneum_mAb)
 nr_care_mAb_bc <- nr_care_func(p_inpatient, pneum_mAb_bc)
@@ -118,10 +121,13 @@ mortality_llAb_bc <- mort_inpat_func(CFR_inpatient, inpatient_llAb_bc, CFR_nr_ca
 mortality_llAb_u <- mort_inpat_func(CFR_inpatient_u, inpatient_llAb_u, CFR_nr_care_u, nr_care_llAb_u)
 
 # Number who die under alternate CFR
-mortality_no_Ptrad_u <- mort_inpat_func(CFR_inpatient_PERCH_trad_u, inpatient_no_u, CFR_nr_care_u, nr_care_no_u)
-mortality_mAb_Ptrad_u <- mort_inpat_func(CFR_inpatient_PERCH_trad_u, inpatient_mAb_u, CFR_nr_care_u, nr_care_mAb_u)
+mortality_no_Ptrad_bc <-mort_inpat_func(CFR_inpatient_PERCH_trad, inpatient_no_bc, CFR_nr_care_PERCH_trad, nr_care_no_bc)
+mortality_no_Ptrad_u <- mort_inpat_func(CFR_inpatient_PERCH_trad_u, inpatient_no_u, CFR_nr_care_PERCH_trad_u, nr_care_no_u)
+mortality_mAb_Ptrad_u <- mort_inpat_func(CFR_inpatient_PERCH_trad_u, inpatient_mAb_u, CFR_nr_care_PERCH_trad_u, nr_care_mAb_u)
+mortality_mAb_Ptrad_bc <- mort_inpat_func(CFR_inpatient_PERCH_trad, inpatient_mAb_bc, CFR_nr_care_PERCH_trad, nr_care_mAb_bc)
 
-mortality_no_buchwald_u <- mort_inpat_func(CFR_inpatient_buchwald_u, inpatient_no_u, CFR_nr_care_u, nr_care_no_u)
-mortality_mAb_buchwald_u <- mort_inpat_func(CFR_inpatient_buchwald_u, inpatient_mAb_u, CFR_nr_care_u, nr_care_mAb_u)
-
+mortality_no_buchwald_bc <-mort_inpat_func(CFR_inpatient_buchwald, inpatient_no_bc, CFR_nr_care_buchwald, nr_care_no_bc)
+mortality_no_buchwald_u <- mort_inpat_func(CFR_inpatient_buchwald_u, inpatient_no_u, CFR_nr_care_buchwald_u, nr_care_no_u)
+mortality_mAb_buchwald_u <- mort_inpat_func(CFR_inpatient_buchwald_u, inpatient_mAb_u, CFR_nr_care_buchwald_u, nr_care_mAb_u)
+mortality_mAb_buchwald_bc <- mort_inpat_func(CFR_inpatient_buchwald, inpatient_mAb_bc, CFR_nr_care_buchwald, nr_care_mAb_bc)
 ##

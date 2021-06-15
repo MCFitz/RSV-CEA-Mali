@@ -96,7 +96,10 @@ RSVcases <- function (pd, babies) {
   sum(cases)
 }
 
-# calculate probability of disease under no intervention across uncertainty range for the attack rate
+# calculate number of cases under status quo (no intervention)
+cases_no_bc <- RSVcases(AR_bc, num_infants)
+
+# calculate number of cases under no intervention across uncertainty range for the attack rate
 cases_no_u <- apply(AR_u, 3, RSVcases, babies = num_infants)
 
 # calculate number of cases under mAb intervention
