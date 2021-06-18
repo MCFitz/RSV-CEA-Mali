@@ -272,6 +272,7 @@ NHB_func <- function (inputs, WTP) {
   NHB
 }
 
+
 WTP_sp <- c(0.01, seq(10, 20*CET_Mali_GDP, by = 5))
 
 # donor perspective

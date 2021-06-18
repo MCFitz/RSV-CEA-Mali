@@ -35,15 +35,19 @@ lines(int_cov, DALY_saved_mVax, col = UMBblue)
 lines(int_cov, DALY_saved_llAb, col = UMBforest)
 
 pricelim <- 71
-plot(cost_range[1:pricelim], ICER_range_mVax[1:pricelim], col = UMBblue, type = "l", bty = "l",
+plot(cost_range[1:pricelim], ICER_range_mVax[1:pricelim], xlim = c(0,5), ylim =c(0,10000), col = UMBblue, type = "l", bty = "l",
      xlab = "Cost per dose (USD, product + delivery)",
      ylab = "ICER")
 lines(cost_range, ICER_range_mAb, col = UMBsea)
 lines(cost_range, ICER_range_llAb, col = UMBforest)
-lines(cost_range, CET, col = UMBgray, lty = 3)
-text(6, CET_Mali_GDP + 250, labels = "1xGDP", cex = 0.80)
+lines(cost_range, CET, col = UMBgray, lty = 3, lwd =2)
+text(4.25, CET_Mali_GDP + 75, labels = "1xGDP", cex = 0.65, pos = 4)
+lines(cost_range, CET/2, col = UMBgray, lty = 4, lwd = 2)
+text(4.25, CET_Mali_GDP/2 + 75, labels = "0.5xGDP", cex = 0.65, pos = 4)
+lines(cost_range, CET/4, col = UMBgray, lty = 2, lwd =2)
+text(4.25, CET_Mali_GDP/4 + 75, labels ="0.25xGDP", cex = 0.65, pos = 4)
 
-plot(WTP_sp, pce_donor_llAb_3, ylim = c(0, 1), xlim = c(0,10000), bty = "l",
+plot(WTP_sp, pce_donor_llAb_3, ylim = c(0, 1), xlim = c(0,5000), bty = "l",
      type = "l", col = UMBforest,
      xlab = "Donor willingness to pay (USD)",
      ylab = "Probability cost-effective")
@@ -52,17 +56,25 @@ lines(WTP_sp, pce_donor_mAb_3, col = UMBsea, lty = 1)
 lines(WTP_sp, pce_donor_mAb_9, col = UMBsea, lty = 2)
 lines(WTP_sp, pce_donor_mVax_3, col = UMBblue, lty =1)
 lines(WTP_sp, pce_donor_mVax_9, col = UMBblue, lty = 2)
-abline( v = CET_Mali_GDP, col = UMBgray, lty = 3)
-text(CET_Mali_GDP, 0.92, labels = "1xGDP", srt = 45, cex = 0.80)
+abline(v = CET_Mali_GDP, col = UMBgray, lty = 3, lwd = 2)
+text(CET_Mali_GDP - 150, 0.85, labels = "1xGDP", srt = 90, cex = 0.65, pos = 4)
+abline(v = CET_Mali_GDP/2, col = UMBgray, lty = 4, lwd = 2)
+text(CET_Mali_GDP/2 - 150, 0.85, labels = "0.5xGDP", srt = 90, cex = 0.65, pos =4)
+abline(v = CET_Mali_GDP/4, col = UMBgray, lty = 2, lwd = 2)
+text(CET_Mali_GDP/4 - 150, 0.85, labels = "0.25xGDP", srt = 90, cex = 0.65, pos = 4)
 
-plot(WTP_sp, pce_gov_llAb, ylim = c(0, 1), xlim = c(0,10000), bty = "l",
+plot(WTP_sp, pce_gov_llAb, ylim = c(0, 1), xlim = c(0,5000), bty = "l",
      type = "l", col = UMBforest,
      xlab = "Government willingness to pay (USD)",
      ylab = "Probability cost-effective")
 lines(WTP_sp, pce_gov_mAb, col = UMBsea, lty =1)
 lines(WTP_sp, pce_gov_mVax, col = UMBblue, lty =1)
-abline( v = CET_Mali_GDP, col = UMBgray, lty = 3)
-text(CET_Mali_GDP, 0.92, labels = "1xGDP", srt = 45, cex = 0.8)
+abline(v = CET_Mali_GDP, col = UMBgray, lty = 3, lwd = 2)
+text(CET_Mali_GDP - 150, 0.85, labels = "1xGDP", srt = 90, cex = 0.65, pos = 4)
+abline(v = CET_Mali_GDP/2, col = UMBgray, lty = 4, lwd = 2)
+text(CET_Mali_GDP/2 - 150, 0.85, labels = "0.5xGDP", srt = 90, cex = 0.65, pos =4)
+abline(v = CET_Mali_GDP/4, col = UMBgray, lty = 2, lwd = 2)
+text(CET_Mali_GDP/4 - 150, 0.85, labels = "0.25xGDP", srt = 90, cex = 0.65, pos = 4)
 
 par(fig = c(0, 1, 0, 1), oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0), new = TRUE)
 plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n")
