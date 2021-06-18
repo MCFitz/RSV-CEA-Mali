@@ -130,8 +130,6 @@ cases_llAb_UC_AR6 <- RSVcases(pd_llAb_UC_AR6, num_infants)
 # are the 0-3 mo cases the same under mVax LC and UC when only the AR6 is changing? YES
 # and under status quo for LC and UC when only the AR6 is changing? YES
 
-
-
 # mAb ICER calculations
 
 ct_mAb_bc <- CER_func(cases_mAb_bc, p_pneum, p_inpatient, CFR_inpatient, dw_LRTI_severe, dw_LRTI_mod,
@@ -229,7 +227,7 @@ ct_list_mAb <- c(ct_mAb_LC_cost_outpat, ct_mAb_UC_cost_outpat,
 ct_mat_mAb <- matrix(ct_list_mAb, 2, 11)
 
 
-# llAb cost-threshold calculations
+# llAb ICER calculations
 
 ct_llAb_bc <- CER_func(cases_llAb_bc, p_pneum, p_inpatient,CFR_inpatient, dw_LRTI_severe, dw_LRTI_mod,
                  di_yrs, p_llAb_bc, num_infants_eligible_llAb, cost_hosp, cost_outpatient)

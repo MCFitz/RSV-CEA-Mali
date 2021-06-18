@@ -125,7 +125,7 @@ cases_mAb_u <- apply(pd_mAb_array, 3, RSVcases, babies = num_infants)
 
 # calculate number of cases under mVax intervention
 # p_mVax_bc = ANC4+ Mali (UNICEF, 2018) * DTP1 Mali (WHO, 2018), metric from Debellut et al. 2018
-p_mVax_bc <- 0.433* 0.82 
+p_mVax_bc <- 0.433* 0.82
 pd_mVax_mat_bc <- pd_calc(mVax_eff, p_mVax_bc, AR_bc, mVax_dur)
 cases_mVax_bc <-  RSVcases(pd_mVax_mat_bc, num_infants)
 
