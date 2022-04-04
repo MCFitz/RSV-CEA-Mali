@@ -1,5 +1,4 @@
 ## Figures for presentations
-## Initially: Frontiers 2019
 library(ggplot2)
 library("RColorBrewer")
 
@@ -84,6 +83,67 @@ legend("bottom", legend = c("Short-acting mAb, $3", "Short-acting mAb, $9", "Lon
 quartz.save(file = "Figures/PanelFig.pdf", type = "pdf")
 
 
+
+quartz("ICERs by cost per dose", 8, 8)
+par(oma = c(4, 1, 1, 1))
+par(mfrow = c(1,1))
+par(lwd = 3, xaxs = "i", yaxs = "i", cex.lab = 1.5, cex.axis = 1.5)
+plot(cost_range[1:pricelim], ICER_range_mVax[1:pricelim], xlim = c(0,7), ylim =c(0,4000), col = UMBblue, type = "l", bty = "l",
+     xlab = "Cost per dose (USD, product + delivery)",
+     ylab = "ICER")
+lines(cost_range, ICER_range_mAb, col = UMBsea)
+lines(cost_range, ICER_range_llAb, col = UMBforest)
+lines(cost_range, CET*3, col = UMBgray, lty = 3, lwd =2)
+text(4.25, CET_Mali_GDP*3 + 75, labels = "3xGDP", cex = 1, pos = 4)
+lines(cost_range, CET, col = UMBgray, lty = 3, lwd =2)
+text(4.25, CET_Mali_GDP + 75, labels = "1xGDP", cex = 1, pos = 4)
+lines(cost_range, CET/2, col = UMBgray, lty = 3, lwd = 2)
+text(4.25, CET_Mali_GDP/2 + 75, labels = "0.5xGDP", cex = 1, pos = 4)
+legend(4.5, 3800, legend = c("Short-acting mAb", "Long-acting mAb", "Maternal vaccine"), ncol = 1, lty = 1,
+       col = c(UMBsea, UMBforest,UMBblue), bty = "n")
+quartz.save(file ="Figures/ppt_figures/ICERs_product_cost.pdf", type = "pdf")
+
+
+
+quartz("WTP perspectives", 12, 8)
+par(oma = c(4, 1, 1, 1))
+par(mfrow = c(1,2))
+par(lwd = 3, xaxs = "i", yaxs = "i", cex.lab = 1.5, cex.axis = 1.5)
+plot(WTP_sp, pce_donor_llAb_3, ylim = c(0, 1), xlim = c(0,5000), bty = "l",
+     type = "l", col = UMBforest,
+     xlab = "Donor willingness to pay (USD)",
+     ylab = "Probability cost-effective")
+lines(WTP_sp, pce_donor_llAb_9, col = UMBforest, lty = 2)
+lines(WTP_sp, pce_donor_mAb_3, col = UMBsea, lty = 1)
+lines(WTP_sp, pce_donor_mAb_9, col = UMBsea, lty = 2)
+lines(WTP_sp, pce_donor_mVax_3, col = UMBblue, lty =1)
+lines(WTP_sp, pce_donor_mVax_9, col = UMBblue, lty = 2)
+abline(v = CET_Mali_GDP, col = UMBgray, lty = 3, lwd = 2)
+text(CET_Mali_GDP - 150, 0.85, labels = "1xGDP", srt = 90, cex = 1, pos = 4)
+abline(v = CET_Mali_GDP/2, col = UMBgray, lty = 3, lwd = 2)
+text(CET_Mali_GDP/2 - 150, 0.85, labels = "0.5xGDP", srt = 90, cex = 1, pos =4)
+
+plot(WTP_sp, pce_gov_llAb, ylim = c(0, 1), xlim = c(0,5000), bty = "l",
+     type = "l", col = UMBforest,
+     xlab = "Government willingness to pay (USD)",
+     ylab = "Probability cost-effective")
+lines(WTP_sp, pce_gov_mAb, col = UMBsea, lty =1)
+lines(WTP_sp, pce_gov_mVax, col = UMBblue, lty =1)
+abline(v = CET_Mali_GDP, col = UMBgray, lty = 3, lwd = 2)
+text(CET_Mali_GDP - 150, 0.85, labels = "1xGDP", srt = 90, cex = 1, pos = 4)
+abline(v = CET_Mali_GDP/2, col = UMBgray, lty = 3, lwd = 2)
+text(CET_Mali_GDP/2 - 150, 0.85, labels = "0.5xGDP", srt = 90, cex = 1, pos =4)
+
+par(fig = c(0, 1, 0, 1), oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0), new = TRUE)
+plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n")
+
+legend("bottom", legend = c("Short-acting mAb, $3", "Short-acting mAb, $9", "Long-acting mAb, $3", "Long-acting mAb, $9", "Maternal vaccine, $3", "Maternal vaccine, $9"), ncol = 3, lty = c(1, 2, 1, 2, 1, 2),
+       col = c(UMBsea, UMBsea, UMBforest, UMBforest, UMBblue, UMBblue), bty = "n", inset =c(0,0), cex = 1.5, xpd = TRUE)
+quartz.save(file ="Figures/ppt_figures/WTP_perspectives.pdf", type = "pdf")
+
+
+
+
 ####
 # # Probability mVax has greater NHB than llAb
 # ####
@@ -125,12 +185,10 @@ quartz.save(file = "Figures/GAVI_analysis.pdf", type = "pdf")
 # Sensitivity analysis tornado plot mAb
 ###
 
-# quartz("tornadoplot", 15, 4)
-quartz("sensitivty mAb", 7, 4)
+quartz("tornadoplot", 15, 4)
 par(lwd = 3)
-par(mfrow = c(1,1))
-# par(mfrow = c(1,3))
-par(mar = c(4, 16, 2, 2), mgp = c(3,1,0), las = TRUE)
+par(mfrow = c(1,3))
+par(mar = c(4, 18, 2, 3), mgp = c(3,1,0), las = TRUE, cex.lab = 1.2, cex.axis = 1.2)
 
 tornado_mAb <-((ct_mat_mAb- ct_mAb_bc)/ ct_mAb_bc) * 100
 colnames(tornado_mAb) <-c("Outpatient care costs", "Disability weight RSV-LRTI, inpatient", "Disability weight RSV-LRTI, outpatient", "Duration of illness", "Inpatient care costs", "Age-based attack rates 0-3m", "Intervention efficacy", "Age-based attack rates 3-6m", "Probability RSV-LRTI", "Probability RSV-LRTI inpatient", "Case fatality rate RSV-LRTI inpatient")
@@ -138,38 +196,27 @@ barplot(tornado_mAb[1,], horiz = T, las=1, xlim = c(-300, 300), xaxt = 's', ylab
         beside=T, col = c(UMBsea), main = "Short-acting mAb", xlab = "Percent change ICER")
 barplot(tornado_mAb[2,], horiz = T, las =1, xlim = c(-300,300), xaxt = 's', ylab = '',
         beside = T, col = c(UMBsea), add = TRUE)
-quartz.save(file = "Figures/tornado_mAb.pdf", type = "pdf" )
 ###
 
 # Sensitivity analysis tornado plot llAb
-###
-
-quartz("sensitivty llAb", 5, 4)
-par(lwd = 3)
-par(mfrow = c(1,1))
-par(mar = c(4, 6, 2, 2), mgp = c(3,1,0), las = TRUE)
+par(mar=c(4, 1, 2, 3))
 tornado_llAb <-((ct_mat_llAb- ct_llAb_bc)/ ct_llAb_bc) * 100
 barplot(tornado_llAb[1,], horiz = T, las=1, xlim = c(-300, 300), xaxt = 's', ylab ='',
         beside=T, col = c(UMBforest), main = "Long-acting mAb", xlab = "Percent change ICER")
 barplot(tornado_llAb[2,], horiz = T, las =1, xlim = c(-300, 300), xaxt = 's', ylab = '',
         beside = T, col = c(UMBforest), add = TRUE)
-quartz.save(file = "Figures/tornado_llAb.pdf", type = "pdf" )
 ###
 
 # Sensitivity analysis tornado plot mVax
 ###
-
-quartz("sensitivity mVax", 5, 4)
-par(lwd = 3)
-par(mfrow = c(1,1))
-par(mar = c(4, 6, 2, 2), mgp = c(3,1,0), las = TRUE)
-
+par(mar=c(4, 1, 2, 3))
 tornado_mVax <-((ct_mat_mVax - ct_mVax_bc)/ ct_mVax_bc) * 100
 barplot(tornado_mVax[1,], horiz = T, las=1, xlim = c(-300, 300), xaxt = 's', ylab ='',
         beside=T, col = c(UMBblue), main = "Maternal vaccine", xlab = "Percent change ICER")
 barplot(tornado_mVax[2,], horiz = T, las =1, xlim = c(-300, 300), xaxt = 's', ylab = '',
         beside = T, col = c(UMBblue), add = TRUE)
-quartz.save(file = "Figures/tornado_mVax.pdf", type = "pdf")
+# quartz.save(file = "Figures/tornadoplot.pdf", type = "pdf")
+quartz.save(file = "Figures/ppt_figures/tornadoplot.pdf", type = "pdf")
 ###
 
 # CFR histogram overlay
@@ -243,12 +290,16 @@ par(lwd = 3)
 par(mfrow = c(1,1))
 par(mar = c(4, 4, 2, 2))
 ggplot() + 
-  geom_point(data = d, mapping = aes(x = CER, y = Scenario), size = 2, shape = 21, fill = c(UMBsea, UMBsea, UMBsea, UMBforest, UMBblue, UMBblue, UMBblue, UMBblue, UMBblue, UMBblue, UMBforest, UMBforest, UMBforest)) +
-  geom_errorbar(data = d, mapping = aes(y= Scenario, xmin = lower, xmax = upper), width = 0.2, size =1, color = c(UMBsea, UMBsea, UMBsea, UMBforest, UMBblue, UMBblue, UMBblue, UMBblue, UMBblue, UMBblue, UMBforest, UMBforest, UMBforest)) +
+  geom_point(data = d, mapping = aes(x = CER, y = Scenario), size = 2, shape = 21,
+             fill = c(UMBsea, UMBsea, UMBsea, UMBforest, UMBblue, UMBblue, UMBblue, UMBblue, UMBblue, UMBblue, UMBforest, UMBforest, UMBforest)) +
+  geom_errorbar(data = d, mapping = aes(y= Scenario, xmin = lower, xmax = upper),
+                width = 0.2, size =1,
+                color = c(UMBsea, UMBsea, UMBsea, UMBforest, UMBblue, UMBblue, UMBblue, UMBblue, UMBblue, UMBblue, UMBforest, UMBforest, UMBforest)) +
   theme(text = element_text(size=15)) +
   xlab("Incremental cost-effectiveness ratio") + 
   ylab("")
 quartz.save(file = "Figures/Scenarios.pdf", type = "pdf")
+# quartz.save(file = "Figures/ppt_figures/Scenarios.pdf", type = "pdf")
 
 ####
 
